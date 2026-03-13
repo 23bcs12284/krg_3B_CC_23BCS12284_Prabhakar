@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool check(long long mid , vector<int>&batteries,int n){
+        long long req = (long long)(mid*n);
+        long long sum = 0;
+        for(auto it : batteries){
+            long long val = min((long long)it,mid);
+            sum += val;
+        }
+
+        return sum>=req;
+    }
+    long long maxRunTime(int n, vector<int>& batteries) {
+        long long sum = 0;
+        for(auto it : batteries) sum+=it;
+        long long s = 1 , e  = sum/n;
+        long long ans = 0;
+        while(s<=e){
+            
+            long long mid = (s+e)/2;
+
+            if(check(mid,batteries,n)){
+                ans = mid;
+                s = mid + 1;
+            }
+            else e = mid - 1;
+        }
+        return ans;
+    }
+};
